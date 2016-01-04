@@ -1,0 +1,18 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();
+?>
+<?php 
+$choose = $this->param->getParams();
+?>
+
+<div id="header1" >
+            <a id ="<?php if ($choose['action'] == "xem") { echo "headhighlight";}?>" href="<?php echo HOST_PROJECT."/index/xem/"?>">Quản Trị</a>
+           
+            <a id ="<?php if ($choose['action'] == "tim") { echo 'headhighlight';}?>" href="<?php echo HOST_PROJECT."/index/tim"?>">Tìm Kiếm</a>
+            <a id ="<?php if ($choose['action'] == "thongke") { echo 'headhighlight';}?>" href="<?php echo HOST_PROJECT."/index/thongke"?>">Thống Kê</a>
+            <a id ="<?php if ($choose['action'] == "export") { echo 'headhighlight';}?>" href="<?php echo HOST_PROJECT."/index/export"?>">Export File</a>
+            
+            <a id ="<?php if ($choose['action'] == "logout") { echo 'headhighlight';}?>" href="<?php echo HOST_PROJECT."/index/logout"?>">Logout</a>
+</div>

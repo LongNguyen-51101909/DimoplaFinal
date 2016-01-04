@@ -1,0 +1,97 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();   
+
+    Zend_Session::start();
+    $mysession = new Zend_Session_Namespace('XuLyDonHang');
+    $num = new Zend_Validate_Digits();
+    
+    $data= new My_Data();
+    $donhang = new Model_Donhang();
+    $khachhang = new Model_Khachhang();
+    $caymoc = new Model_Caymoc();
+    $caytp = new Model_Caythanhpham();
+    $lonhuom = new Model_Lonhuom();
+    $khohang = new Model_Khohang();
+    $loaivai = new Model_Loaivai();
+    
+    $madonhang = $this->element->getElement('madonhang')->getValue();
+    
+    $donhangrow= $donhang->getWhere($madonhang);
+    $khachhangrow = $khachhang->getWhere($donhangrow['MaKhachHang']);
+    
+    
+    
+    $opChecked = array();
+    $dem = 1;
+    $tongtien = 0;
+    $sometvai = 0;
+    $mavai= '';
+    
+    
+    foreach ($mysession->checktp as $key => $item)
+    {
+        if($num->isValid($key))
+        {
+            $caytprow = $caytp->getWhere($item);
+            $caymocrow = $caymoc->getWhere_ctp($item);
+            $lonhuomrow = $lonhuom->getWhere($caymocrow['MaLoNhuom']);
+            $khohangrow = $khohang->getWhere($caytprow['MaKhoTP']);
+            $sub =array('STT'=>$dem,
+                $item,
+                $data->getNameVai($caymocrow['MaVai']),
+                $data->getNameMau($lonhuomrow['MaMau']),
+                $caytprow['SoMetVai'],
+                $khohangrow['TenKho'],
+                );
+            $opChecked[]=$sub;
+            $sometvai+=$caytprow['SoMetVai'];
+            $mavai = $caymocrow['MaVai'];
+            $dem++;
+        }
+    }
+    $vaiLable = "</td><td colspan='2'>Tổng số mét</td>";
+    $tienLable= "</td><td colspan='2'>Tổng Tiền</td>";
+    $loaivairow = $loaivai->getWhere($mavai);
+    $tongtien = $data->convertCurrency($sometvai*$loaivairow['Gia']);
+    $info1 = array($vaiLable,$sometvai,null,null);
+    $opChecked[]=$info1;
+    $info2 = array($tienLable,($tongtien),null,null);
+    $opChecked[]=$info2;
+    
+    $title = array("STT","Mã CTP","Loại Vải","Màu Vải","Số Mét","Kho TP");
+    $query = $data->createTable($title, $opChecked, "570px",'',false);
+    
+    
+    
+    
+    $opGiaoHang = array();
+    
+    $opGiaoHang[] = $khachhangrow['TenKhachHang'];
+    $opGiaoHang[] = $madonhang;
+    $opGiaoHang[] = $data->getNameVai($donhangrow['MaVai']);
+    $opGiaoHang[] = $sometvai;
+    $opGiaoHang[] = $tongtien;
+    $opGiaoHang[] = $this->element->getElement('ngayxuat');
+    $opGiaoHang[] = $this->element->getElement('giao');
+    $title = array("Tên Khách Hàng","Mã Đơn Hàng","Loại Vải","Số Mét","Thành Tiền", "Ngày Xuất","");
+    $query1 = $data->createRightTable($title, $opGiaoHang, "400px");
+//     echo $query1;
+    ?>
+     <span ><?php echo $this->element->getElement('madonhang');?></span>
+    <div class="main">
+            <div style='float: left'>
+            <?php 
+                echo "<h1 class='title'>Đơn Xuất</h1>";
+                echo $query1;
+            ?>
+            </div>
+            
+            <div class = "right">
+            <?php 
+                echo "<h1 class='title'>Cây Thành Phẩm</h1>";
+                echo $query;
+            ?>
+            </div>
+</div>

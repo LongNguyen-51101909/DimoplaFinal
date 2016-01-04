@@ -1,0 +1,200 @@
+<?php
+        echo $this->headMeta();
+        echo $this->headLink();
+        require_once '/../header.phtml';
+        $hightlight ="" ;
+        $choose = $this->param->getParams();
+        
+        if(array_key_exists('khachhang',$choose)) $hightlight = "khachhang";
+        else if(array_key_exists('donhang',$choose)) $hightlight = "donhang";
+        else if(array_key_exists('hopdong',$choose)) $hightlight = "hopdong";
+        else if(array_key_exists('caymoc',$choose)) $hightlight = "caymoc";
+        else if(array_key_exists('caymoc_detail',$choose)) $hightlight = "caymoc";
+        else if(array_key_exists('taoctp',$choose)) $hightlight = "caythanhpham";
+        else if(array_key_exists('lonhuom',$choose)) $hightlight = "lonhuom";
+        else if(array_key_exists('khohang',$choose)) $hightlight = "khohang";
+        else if(array_key_exists('caythanhpham',$choose)) $hightlight = "caythanhpham";
+        else if(array_key_exists('ctp_detail',$choose)) $hightlight = "caythanhpham";
+        else if(array_key_exists('khotp',$choose)) $hightlight = "khotp";
+        else if(array_key_exists('donxuat',$choose)) $hightlight = "donxuat";
+        else if(array_key_exists('hoadon',$choose)) $hightlight = "hoadon";
+        else if(array_key_exists('loaivai',$choose)) $hightlight = "loaivai";
+        else if(array_key_exists('loaisoi',$choose)) $hightlight = "loaisoi";
+        else if(array_key_exists('mau',$choose)) $hightlight = "mau";
+        else if(array_key_exists('nhacungcap',$choose)) $hightlight = "nhacungcap";
+        else if(array_key_exists('khosoi',$choose)) $hightlight = "khosoi";
+        else if(array_key_exists('khomoc',$choose)) $hightlight = "khomoc";
+        else $hightlight = "donxuat";
+        
+        $router = Zend_Controller_Front::getInstance()->getRouter();
+            
+            
+?>
+
+
+<div id="mainql">
+    <div style="float: left">
+<!--         <p class="quanly_title">Quản lý dữ liệu</p> -->
+        <div style="display:block" id = "mainmenu">
+            <p <?php if($hightlight=="khachhang") echo 'class ="highlight"';?> ><a  href="<?php echo HOST_PROJECT."/index/export"?>">Khách Hàng</a></p>
+            <p <?php if($hightlight=="donhang") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Đơn Hàng</a></p>
+            <p <?php if($hightlight=="hopdong") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Hợp Đồng </a></p>
+            <p <?php if($hightlight=="caymoc") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Cây Mộc</a></p>
+            <p <?php if($hightlight=="lonhuom") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Lô Nhuộm</a></p>
+            <p <?php if($hightlight=="caythanhpham") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Cây Thành Phẩm</a></p>
+            <p <?php if($hightlight=="donxuat") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Đơn Xuất</a></p>
+            <p <?php if($hightlight=="hoadon") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Hóa Đơn</a></p>
+            <p <?php if($hightlight=="loaivai") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Loại Vải</a></p>
+            <p <?php if($hightlight=="loaisoi") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Loại Sợi</a></p>
+            <p <?php if($hightlight=="mau") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Màu</a></p>
+            <p <?php if($hightlight=="khohang") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Kho Hàng</a></p>
+            <p <?php if($hightlight=="khosoi") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Kho Sợi</a></p>
+            <p <?php if($hightlight=="khomoc") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Kho Mộc</a></p>
+            <p <?php if($hightlight=="khotp") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Kho TP</a></p>
+            <p <?php if($hightlight=="nhacungcap") echo 'class ="highlight"';?>><a  href="<?php echo HOST_PROJECT."/index/export"?>">Nhà Cung Cấp</a></p>
+            
+        </div>
+        <span style="clear: both"></span>
+    </div>
+ 
+</div>
+<div id="bodycontent">
+<?php
+    $router = Zend_Controller_Front::getInstance()->getRouter();
+    
+    $urlchitiet = $router->assemble(array('option' => 'chitiet'));
+    $urlthem = $router->assemble(array('option' => 'thanhtoan'));
+    
+    $data = new My_Data();
+    
+    $hightlight ="" ;
+    $choose = $this->param->getParams();
+    $option = "";
+    if(!array_key_exists("option",$choose) || $choose['option'] == 'chitiet')
+        $option ="chitiet";
+    else 
+        $option = "thanhtoan";
+    
+    $tk = new Model_Taikhoan();
+    $taikhoan = $tk->getRow();  
+    $no = $data->getTongNo();
+    $sodu = $data->convertCurrency($taikhoan['SoDu']);
+    $tongno = $data->convertCurrency($no);
+    $khadung = $data->convertCurrency($taikhoan['SoDu']-$no);
+    
+    
+    ?>
+            <div class="mybutton">
+                <a href="<?php echo $urlchitiet ?>">Chi Tiết</a>
+                <a href="<?php echo $urlthem ?>">Thanh Toán</a>
+            </div>    
+
+            <span style="clear: both"></span>  
+            <br><br><br>
+            <?php
+                if($option== "chitiet")
+                {
+                    ?><div class= "taichinh">
+                        <p>Số dư công ty   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp   <?php echo $sodu;?></p>
+                        <p>Tổng nợ công ty &nbsp&nbsp&nbsp&nbsp<?php echo $tongno;?></p>
+                        <p>Số dư khả dụng  &nbsp&nbsp&nbsp&nbsp&nbsp<?php echo $khadung?></p>
+                    </div><?php
+             
+                }
+                else 
+                {
+                    echo "<br><br>";
+                    $form = new Form_Chonncc();
+                    
+                    
+                    if($this->param->isPost())
+                    {
+                        $post = $this->param->getParams();
+                        if(!array_key_exists('tienthanhtoan',$post))
+                        {
+                            $param = $this->param->getPost();
+                            
+                            $mancc = $param['manhacungcap'];
+                            $ncc = new Model_Nhacungcap();
+                            $nhacungcap = $ncc->getWhere($mancc);
+                            
+                            $update = array("manhacungcap" => $mancc);
+                            $form->populate($update);
+                            echo $form;
+                            
+                            if($nhacungcap['No'] != 0)
+                            {
+                                $formThanhToan = new Form_Noindex_Thanhtoan();
+                                $formThanhToan->createForm($mancc);
+                                echo $formThanhToan;
+                            }
+                            else 
+                            {
+                                echo "<div class='long_message'>";
+                                echo "Công ty đã trả hết nợ cho Nhà Cung Cấp này."."<br/>";
+                                echo "</div>";
+                            }
+                        }
+                        elseif (array_key_exists('tienthanhtoan',$post))
+                        {
+                            $mancc = $post['mancc'];
+                            $ncc = new Model_Nhacungcap();
+                            $nhacungcap = $ncc->getWhere($mancc);
+                            
+                            $update = array("manhacungcap" => $mancc);
+                            $form->populate($update);
+                            echo $form;
+                            
+                            $check = new Form_Valid_Hoadon($post,$taikhoan['SoDu'],$nhacungcap['No']);
+                            
+                            if(!$check->valid($post))
+                            {
+                                $formThanhToan = new Form_Noindex_Thanhtoan();
+                                $formThanhToan->createForm($mancc);
+                                $formThanhToan->populate($post);
+                                echo $formThanhToan;
+                                
+                                echo "<div class='message'>";
+                                foreach($check->messages as $item)
+                                {
+                                    echo $item."<br/>";
+                                }
+                                echo "</div>";
+                            }
+                            else 
+                            {
+                                $hd = new Model_Hoadon();
+                                $mydate = Zend_Locale_Format::getDate($post['ngaythanhtoan'],array("date_format"=>"dd.MM.yyyy"));
+                                $date_str =  $mydate['year']."-". $mydate['month']."-". $mydate['day'];
+                                $data = array(
+                                    "MaHoaDon"=>null,
+                                    "TenHoaDon"=>$post['tenhoadon'],
+                                    "SoTien"=>$post['tienthanhtoan'],
+                                    "NgayThanhToan"=>$date_str,
+                                    "HinhThuc"=>$post['hinhthuc'],
+                                    "MaNhaCungCap"=>$mancc,
+                                );
+                                
+                                // insert hoa don
+                                $hd->insert_hoadon($data);
+                                
+                                // update tai khoan cong ty
+                                $tienconlai = $taikhoan['SoDu'] - $post['tienthanhtoan'];
+                                $noconlai = $taikhoan['TongNo'] - $post['tienthanhtoan'];
+                                $updatetk = array ('SoDu'=>$tienconlai,'TongNo'=>$noconlai);
+                                $tk->update_data($taikhoan['MaTaiKhoan'], $updatetk);
+                                
+                                //update so no cua nha cung cap
+                                $noncc = $nhacungcap['No'] - $post['tienthanhtoan'];
+                                $update_ncc = array("No"=>$noncc);
+                                $ncc->update_data($nhacungcap['MaNhaCungCap'], $update_ncc);
+                            }
+                        }
+                            
+                    }
+                    else 
+                    {
+                        echo $form;
+                    }
+                }
+            ?>

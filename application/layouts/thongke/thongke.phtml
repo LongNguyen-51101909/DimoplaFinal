@@ -1,0 +1,256 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    require_once '/../header.phtml';
+    ?>
+    <?php 
+        echo $this->headMeta();
+        echo $this->headLink();
+        
+        require_once '/../header.phtml';
+        
+        
+        
+        $hightlight ="" ;
+        $choose = $this->param->getParams();
+        
+        if(array_key_exists('khachhang',$choose)) $hightlight = "khachhang";
+        else if(array_key_exists('donhang',$choose)) $hightlight = "donhang";
+        else if(array_key_exists('hopdong',$choose)) $hightlight = "hopdong";
+        else if(array_key_exists('caymoc',$choose)) $hightlight = "caymoc";
+        else if(array_key_exists('caymoc_detail',$choose)) $hightlight = "caymoc";
+        else if(array_key_exists('taoctp',$choose)) $hightlight = "caythanhpham";
+        else if(array_key_exists('lonhuom',$choose)) $hightlight = "lonhuom";
+        else if(array_key_exists('khohang',$choose)) $hightlight = "khohang";
+        else if(array_key_exists('caythanhpham',$choose)) $hightlight = "caythanhpham";
+        else if(array_key_exists('ctp_detail',$choose)) $hightlight = "caythanhpham";
+        else if(array_key_exists('khotp',$choose)) $hightlight = "khotp";
+        else if(array_key_exists('donxuat',$choose)) $hightlight = "donxuat";
+        else if(array_key_exists('hoadon',$choose)) $hightlight = "hoadon";
+        else if(array_key_exists('loaivai',$choose)) $hightlight = "loaivai";
+        else if(array_key_exists('loaisoi',$choose)) $hightlight = "loaisoi";
+        else if(array_key_exists('mau',$choose)) $hightlight = "mau";
+        else if(array_key_exists('nhacungcap',$choose)) $hightlight = "nhacungcap";
+        else if(array_key_exists('khosoi',$choose)) $hightlight = "khosoi";
+        else if(array_key_exists('khomoc',$choose)) $hightlight = "khomoc";
+        else $hightlight = "khachhang";
+        
+        $router = Zend_Controller_Front::getInstance()->getRouter();
+            
+            
+?>
+
+
+<div id="mainql">
+	<div style="float: left">
+		<!--         <p class="quanly_title">Quản lý dữ liệu</p> -->
+		<div style="display: block" id="mainmenu">
+			<p <?php if($hightlight=="khachhang") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Khách Hàng</a>
+			</p>
+			<p <?php if($hightlight=="donhang") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Đơn Hàng</a>
+			</p>
+			<p <?php if($hightlight=="hopdong") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Hợp Đồng </a>
+			</p>
+			<p <?php if($hightlight=="caymoc") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Cây Mộc</a>
+			</p>
+			<p <?php if($hightlight=="lonhuom") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Lô Nhuộm</a>
+			</p>
+			<p <?php if($hightlight=="caythanhpham") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Cây Thành Phẩm</a>
+			</p>
+			<p <?php if($hightlight=="donxuat") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Đơn Xuất</a>
+			</p>
+			<p <?php if($hightlight=="hoadon") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Hóa Đơn</a>
+			</p>
+			<p <?php if($hightlight=="loaivai") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Loại Vải</a>
+			</p>
+			<p <?php if($hightlight=="loaisoi") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Loại Sợi</a>
+			</p>
+			<p <?php if($hightlight=="mau") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Màu</a>
+			</p>
+			<p <?php if($hightlight=="khohang") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Kho Hàng</a>
+			</p>
+			<p <?php if($hightlight=="khosoi") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Kho Sợi</a>
+			</p>
+			<p <?php if($hightlight=="khomoc") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Kho Mộc</a>
+			</p>
+			<p <?php if($hightlight=="khotp") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Kho TP</a>
+			</p>
+			<p <?php if($hightlight=="nhacungcap") echo 'class ="highlight"';?>>
+				<a href="<?php echo HOST_PROJECT."/index/thongke"?>">Nhà Cung Cấp</a>
+			</p>
+
+		</div>
+		<span style="clear: both"></span>
+	</div>
+	<div id="bodycontent">
+		<div class="thongke" id="thongke">
+			<fieldset>
+				<legend>Thống kê loại vải bán theo:</legend>
+				<input type='radio' name='loai_thongke' value='1' style="" /> Thống
+				kê theo biểu đồ hình tròn</br> 
+				<input type='radio' name='loai_thongke' value='2' />
+				Thống kê theo biểu đồ cột</br> 
+				<input type='radio' name='loai_thongke'
+					value='3' /> Thống kê theo biểu đồ đường</br>
+			</fieldset>
+			<br> <br>
+
+
+			<div id='thongke_thang' style='display: none'>
+				<div class='chart' id='chart_vai' style='display: inline-block'></div>
+				<div class='chart' id='chart_mau'
+					style='margin-left: 100px; display: inline-block'></div>
+			</div>
+			<div id='thongke_quy' style='display: none'>
+                				<div class='chart' id='chart_vai2' style='display: inline-block'></div>
+				<div class='chart' id='chart_mau2' style='margin-left: 100px; display: inline-block'></div>
+			</div>
+			<div id='thongke_nam' style='display: none'>
+				<div class='chart' id='chart_vai1' style='display: inline-block'></div>
+				<div class='chart' id='chart_mau1'
+					style='margin-left: 100px; display: inline-block'></div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<script type='text/javascript'>
+        $(function() {
+            $("input[name=loai_thongke]").click(function() {
+                if($(this).val() == '1') {
+                    $("#thongke_thang").css('display', 'block');
+                    $("#thongke_quy").css('display', 'none');
+                    $("#thongke_nam").css('display', 'none');
+                }
+                if($(this).val() == '2') {
+                    $("#thongke_quy").css('display', 'block');
+                    $("#thongke_thang").css('display', 'none');
+                    $("#thongke_nam").css('display', 'none');
+                }
+                if($(this).val() == '3') {
+                    $("#thongke_nam").css('display', 'block');
+                    $("#thongke_thang").css('display', 'none');
+                    $("#thongke_quy").css('display', 'none');
+                }
+            })
+        })
+        	var data = {
+		series : [ 5, 3, 4 ]
+	};
+      	var data1 = {
+      			series : [ 2, 4, 2 ]
+      		};
+	var sum = function(a, b) {
+		return a + b
+	};
+
+	$('body').find('#chart_vai').each(function() {
+		new Chartist.Pie('#' + $(this).attr('id'), data, {
+			labelInterpolationFnc : function(value) {
+				return Math.round(value / data.series.reduce(sum) * 100) + '%';
+			},
+			width : 400,
+			height : 400,
+		});
+		
+	});
+	$('body').find('#chart_mau').each(function() {
+		new Chartist.Pie('#' + $(this).attr('id'), data1, {
+			labelInterpolationFnc : function(value) {
+				return Math.round(value / data1.series.reduce(sum) * 100) + '%';
+			},
+			width : 400,
+			height : 400,
+		});
+	});
+
+
+
+
+	$('body').find('#chart_vai1').each(function() {
+		new Chartist.Line('#' + $(this).attr('id'), {
+			labels: ['Jab', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'August','Sep', 'Oct', 'Nov', 'Dec'],
+			  series: [
+			    [2, 3, 2, 4, 5],
+			  ]
+			}, {
+			  width: 500,
+			  height: 400
+			});
+		
+	});
+	console.log("long");
+	$('body').find('#chart_mau1').each(function() {
+		new Chartist.Line('#' + $(this).attr('id'), {
+			  labels: ['Jab', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'August','Sep', 'Oct', 'Nov', 'Dec'],
+			  series: [
+			    [2, 3, 2, 4, 5],
+			    [0, 2.5, 3, 2, 3],
+			    [<?php 
+                        $a1 = 1;
+                        $a2 = 3;
+                        $a3 = 4;
+                        $a4 = 5;
+                        //echo '"'.$info['f_name'].'",'; 
+                        // get data and echo data
+                        echo $a1.','.$a2.','.$a3.','.$a4; ?>]
+			  ]
+			}, {
+			  width: 500,
+			  height: 400
+			});
+	});
+
+	// Quy
+
+	$('body').find('#chart_vai2').each(function() {
+		new Chartist.Bar('#' + $(this).attr('id'), {
+			  labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+			  series: [
+			    [2, 8, 2, 4, 5, 8, 10],
+			    [4, 5, 8, 2, 6, 3, 10]
+			  ]
+			}, {
+			  seriesBarDistance: 30,
+			  axisX: {
+			    showGrid: false,
+
+			  },
+			    width: 500,
+				height: 400
+			});
+		
+	});
+	
+	$('body').find('#chart_mau2').each(function() {
+		new Chartist.Bar('#' + $(this).attr('id'), {
+			  labels: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
+			  series: [20, 60, 120, 200, 180, 20, 10]
+			}, {
+			  distributeSeries: true,
+			  width: 500,
+			  height: 400
+			});
+	});
+	
+
+
+	
+	
+    </script>

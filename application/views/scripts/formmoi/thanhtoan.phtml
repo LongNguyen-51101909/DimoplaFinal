@@ -1,0 +1,33 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript(); 
+
+    $data = new My_Data();
+    echo '<h1 class="title">Thanh Toán</h1>';
+    $title = array("Nhập Số Tiền","");
+    $content = array($this->element->getElement('thanhtoan'), $this->element->getElement('them'));
+    $query = $data->createRightTable($title, $content, "500px");
+    //echo $query;
+?>
+
+
+<div style="padding: 8px;background-color: #0CC;width: 400px; margin-right: 200px;">
+    <table >
+        <tbody>
+        
+            <tr >
+                <td style="width: 150px;padding:10px;" >Ngày Thanh Toán</td>
+                <td style="width: 130px;padding:10px;"><?php echo $this->element->getElement('ngaythanhtoan')?></td>   
+            </tr>
+            <tr >
+                <td style="width: 130px;padding:10px;" >Nhập Số Tiền</td>
+                <td style="width: 130px;padding:10px;"><?php echo $this->element->getElement('tienthanhtoan')?></td>   
+            </tr>
+            <tr >
+                <td style="width: 50px;" ></td>
+                <td style="width: 130px;padding:10px;"><?php echo $this->element->getElement('thanhtoan')?></td>   
+            </tr>
+        </tbody>
+    </table>
+</div>
